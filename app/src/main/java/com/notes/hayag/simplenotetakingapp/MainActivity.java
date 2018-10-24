@@ -4,11 +4,16 @@ import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+
 public class MainActivity extends AppCompatActivity {
 
+    public static final String TAG = "MainActivity";
    private DbHelper dbHelper = null;
    private SQLiteDatabase db = null;
 
@@ -19,7 +24,10 @@ public class MainActivity extends AppCompatActivity {
        setContentView(R.layout.activity_main);
 
         dbHelper = new DbHelper(this);
-        dbHelper.getWritableDatabase();
+        db = dbHelper.getWritableDatabase();
+
+        ArrayList<Note> notes =  dbHelper.getAllNotes(db);
+        db.close();
     }
 
     @Override
